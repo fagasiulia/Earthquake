@@ -6,10 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public final class QueryUtils {
 
@@ -44,15 +41,9 @@ public final class QueryUtils {
                 JSONObject currentObject = jsonArray.getJSONObject(i);
                 JSONObject propertiesObject = currentObject.getJSONObject("properties");
 
-                // Convert the time in a proper format
-                long timeInMilliseconds = propertiesObject.getLong("time");
-                Date date = new Date(timeInMilliseconds);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MMM DD, yyyy");
-                String finalDate = dateFormat.format(date);
-
                 // Create a new earthquake object with the information from the JSONObject
                 Earthquake earthquake = new Earthquake(propertiesObject.getString("mag"),
-                        propertiesObject.getString("place"), finalDate);
+                        propertiesObject.getString("place"), propertiesObject.getLong("time"));
 
                 // Add the object to the list
                 earthquakes.add(earthquake);
