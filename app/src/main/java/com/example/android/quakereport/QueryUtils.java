@@ -42,7 +42,7 @@ public final class QueryUtils {
                 JSONObject propertiesObject = currentObject.getJSONObject("properties");
 
                 // Create a new earthquake object with the information from the JSONObject
-                Earthquake earthquake = new Earthquake(propertiesObject.getString("mag"),
+                Earthquake earthquake = new Earthquake(propertiesObject.getDouble("mag"),
                         propertiesObject.getString("place"), propertiesObject.getLong("time"));
 
                 // Add the object to the list
