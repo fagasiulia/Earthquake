@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import java.text.DecimalFormat;
+
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
@@ -38,7 +40,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // Find the TextView with view ID magnitude
         TextView magnitudeView = listItemView.findViewById(R.id.magnitude);
         // Display the magnitude of the current earthquake in that TextView
-        magnitudeView.setText(currentEarthquake.getMagnitude());
+        magnitudeView.setText(formatMagnitude(currentEarthquake.getMagnitude()));
 
         // Find the TextView with view ID location_offset and the TextView with ID primary_location
         TextView locationOffsetView = listItemView.findViewById(R.id.location_offset);
@@ -91,5 +93,11 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
         return timeFormat.format(dateObject);
     }
+    
+    // Return the formatted magnitude string showing 1 decimal place
+   private String formatMagnitude (double magnitude){
+       DecimalFormat magnitudeFormat = new DecimalFormat("0.0");
+       return magnitudeFormat.format(magnitude);
+   }
 
 }
