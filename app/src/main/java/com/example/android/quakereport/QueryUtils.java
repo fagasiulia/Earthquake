@@ -41,9 +41,14 @@ public final class QueryUtils {
                 JSONObject currentObject = jsonArray.getJSONObject(i);
                 JSONObject propertiesObject = currentObject.getJSONObject("properties");
 
-                // Create a new earthquake object with the information from the JSONObject
+                // Extract the value for the key called "url"
+                String url = propertiesObject.getString("url");
+
+                // Create a new {@link Earthquake} object with the magnitude, location, time,
+                // and url from the JSON response.
                 Earthquake earthquake = new Earthquake(propertiesObject.getDouble("mag"),
-                        propertiesObject.getString("place"), propertiesObject.getLong("time"));
+                        propertiesObject.getString("place"), propertiesObject.getLong("time"),
+                        propertiesObject.getString("url"));
 
                 // Add the object to the list
                 earthquakes.add(earthquake);
