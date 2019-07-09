@@ -14,6 +14,10 @@ import java.util.Date;
 
 import java.text.DecimalFormat;
 
+import android.graphics.drawable.GradientDrawable;
+
+import android.support.v4.content.ContextCompat;
+
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
@@ -42,6 +46,16 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // Display the magnitude of the current earthquake in that TextView
         magnitudeView.setText(formatMagnitude(currentEarthquake.getMagnitude()));
 
+        // Set the proper background color on the magnitude circle.
+        // Fetch the background from the TextView, which is a GradientDrawable.
+        GradientDrawable magnitudeCircle = (GradientDrawable) magnitudeView.getBackground();
+
+        // Get the appropriate background color based on the current earthquake magnitude
+        int magnitudeColor = getMagnitudeColor(currentEarthquake.getMagnitude());
+
+        // Set the color on the magnitude circle
+        magnitudeCircle.setColor(magnitudeColor);
+
         // Find the TextView with view ID location_offset and the TextView with ID primary_location
         TextView locationOffsetView = listItemView.findViewById(R.id.location_offset);
         TextView primaryLocationView = listItemView.findViewById(R.id.primary_location);
@@ -52,7 +66,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
             // Display the location offset of the current earthquake in location_offset TextView
             locationOffsetView.setText(locationSplit[0] + LOCATION_SEPARATOR);
             // Display the primary location of the current earthquake in primary_location TextView
-            primaryLocationView.setText(locationSplit[0]);
+            primaryLocationView.setText(locationSplit[1]);
         }
         else{
             // Display the location offset of the current earthquake in location_offset TextView
@@ -95,9 +109,39 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     }
     
     // Return the formatted magnitude string showing 1 decimal place
-   private String formatMagnitude (double magnitude){
+    private String formatMagnitude (double magnitude){
        DecimalFormat magnitudeFormat = new DecimalFormat("0.0");
        return magnitudeFormat.format(magnitude);
    }
+
+    // Return the right color based on the magnitude
+    public int getMagnitudeColor(double magnitude){
+        // Transform magnitude in an integer
+        int mag = (int)Math.floor(magnitude);
+        switch(mag){
+            case 0:
+            case 1:
+                return ContextCompat.getColor(getContext(), R.color.magnitude1);
+            case 2:
+                return ContextCompat.getColor(getContext(), R.color.magnitude2);
+            case 3:
+                return ContextCompat.getColor(getContext(), R.color.magnitude3);
+            case 4:
+                return ContextCompat.getColor(getContext(), R.color.magnitude4);
+            case 5:
+                return ContextCompat.getColor(getContext(), R.color.magnitude5);
+            case 6:
+                return ContextCompat.getColor(getContext(), R.color.magnitude6);
+            case 7:
+                return ContextCompat.getColor(getContext(), R.color.magnitude7);
+            case 8:
+                return ContextCompat.getColor(getContext(), R.color.magnitude8);
+            case 9:
+                return ContextCompat.getColor(getContext(), R.color.magnitude9);
+            case 10:
+            default:
+                return ContextCompat.getColor(getContext(), R.color.magnitude9);
+        }
+    }
 
 }
